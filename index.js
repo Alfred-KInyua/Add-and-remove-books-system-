@@ -5,6 +5,20 @@ class Books{
         this.isbn=isbn
     }
 }
+class storage{
+ static getBook(){
+    let books;
+    if(localStorage.getItem('books')==null){
+        books =[];
+    }
+    else{
+        books =JSON.parse( localStorage.getItem('books'));
+    }
+    return books
+ }
+ static addBook(){}
+ static removeBOok(){}
+}
 class UserInterface{
     static displayBooks(){
         const storedBooks =[
