@@ -16,28 +16,25 @@ class storage{
     }
     return books
  }
- static addBook(){}
- static removeBOok(){}
+ static addBook(book){
+    const books = storage.getBook();
+    books.push(book);
+    localStorage.setItem('books', JSON.stringify(books));
+ }
+ static removeBook(isbn){
+    const books = storage.getBook();
+    books.forEach((book,index)=>{
+        if(book.isbn===isbn){
+      books.splice(index,1);
+        }
+    });
+    localStorage.setItem('books', JSON.stringify(books));
+ }
 }
 class UserInterface{
     static displayBooks(){
-        const storedBooks =[
-         {title:'The broken boy',
-         author:'martin floyd',
-         isbn:'3445'         
-         },
-         {
-         title:'Star',
-         author:'Sydney Sheldon',
-         isbn:'983445'
-         },
-         { 
-         title:'The famished road ',
-         author:'Ben Okri',
-         isbn:'786'
-        }];
-
-        const books = storedBooks;
+     
+        const books = storage.getBook();
         books.forEach((book)=>UserInterface.addBooks(book));
 
     }
@@ -48,8 +45,7 @@ class UserInterface{
     <td>${books.title}</td>
     <td>${books.author}</td>
     <td>${books.isbn}</td>
-    <td class="delete">Delete</td>
-    
+    <td><a href="#" class ="delete">Delete</a></td>    
     `;
    content.appendChild(row);
 
@@ -64,7 +60,7 @@ class UserInterface{
     }
     static deleteBooks=(del)=>{
         if (del.classList.contains('delete')){
-           del.parentElement.remove();
+           del.parentElement.parentElement.remove();
       }
         }
 }
@@ -84,8 +80,9 @@ document.querySelector('.myform').addEventListener('submit',(e)=>{
  }
  else{
   
-    const newBook = new Books(title,author,isbn);
+const newBook = new Books(title,author,isbn);
  UserInterface.addBooks(newBook);
+ storage.addBook(newBook);
  UserInterface.clearField();
 
  }
@@ -94,6 +91,7 @@ document.querySelector('.myform').addEventListener('submit',(e)=>{
 })
 document.querySelector('.content').addEventListener('click',(e)=>{
 UserInterface.deleteBooks(e.target);
+Storage.removeBook(e.target.parentElement.previousElementSibling.textContent);
 
 
 })
