@@ -31,10 +31,6 @@ table, th, td {
   border: 1px solid black;
 }
 
-tbody tr :nth-child(even) {
-  background-color: #7a5b5b;
-}
-
 input[type='text'] {
   width: 100%;
   padding: 10px 0;

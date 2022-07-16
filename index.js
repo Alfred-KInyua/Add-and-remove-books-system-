@@ -23,5 +23,23 @@ class UserInterface{
          isbn:'786'
         }];
 
+        const books = storedBooks;
+        books.forEach((book)=>UserInterface.addBooks(book));
+
+    }
+    static addBooks=(books)=>{
+    const content = document.querySelector('.content');
+    const row = document.createElement('tr');
+    row.innerHTML =`
+    <td>${books.title}</td>
+    <td>${books.author}</td>
+    <td>${books.isbn}</td>
+    <td>Delete</td>
+    
+    `;
+   content.appendChild(row);
+
+
     }
 }
+document.addEventListener('DOMContentLoaded',UserInterface.displayBooks());
