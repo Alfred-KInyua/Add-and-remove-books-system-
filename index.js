@@ -41,5 +41,22 @@ class UserInterface{
 
 
     }
+    static clearField(){
+        const title =document.querySelector('#title').value='';
+        const author =document.querySelector('#author').value='';
+        const isbn =document.querySelector('#isbn').value='';
+
+    }
 }
 document.addEventListener('DOMContentLoaded',UserInterface.displayBooks());
+document.querySelector('.myform').addEventListener('submit',(e)=>{
+ e.preventDefault();
+ const title =document.querySelector('#title').value;
+ const author =document.querySelector('#author').value;
+ const isbn =document.querySelector('#isbn').value;
+
+ const newBook = new Books(title,author,isbn);
+ UserInterface.addBooks(newBook);
+ UserInterface.clearField();
+
+})
