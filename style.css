@@ -49,4 +49,9 @@ input[type='submit'] {
   width: 40%;
   background-color: rgba(0, 128, 0, 0.192);
 }
+
+.delete, .fill {
+  background-color: red;
+  font-weight: bold;
+}
 /*# sourceMappingURL=style.css.map */

@@ -34,19 +34,25 @@ class UserInterface{
     <td>${books.title}</td>
     <td>${books.author}</td>
     <td>${books.isbn}</td>
-    <td>Delete</td>
+    <td class="delete">Delete</td>
     
     `;
    content.appendChild(row);
 
 
-    }
+ }
+ 
     static clearField(){
         const title =document.querySelector('#title').value='';
         const author =document.querySelector('#author').value='';
         const isbn =document.querySelector('#isbn').value='';
 
     }
+    static deleteBooks=(del)=>{
+        if (del.classList.contains('delete')){
+           del.parentElement.remove();
+      }
+        }
 }
 document.addEventListener('DOMContentLoaded',UserInterface.displayBooks());
 document.querySelector('.myform').addEventListener('submit',(e)=>{
@@ -54,9 +60,26 @@ document.querySelector('.myform').addEventListener('submit',(e)=>{
  const title =document.querySelector('#title').value;
  const author =document.querySelector('#author').value;
  const isbn =document.querySelector('#isbn').value;
+ if (title===''||author===''||isbn===''){
+    const row = document.querySelector('.fill')
+   row.innerHTML =`
+   <p class ="fills">PLEASE FILLOUT ALL INPUT FILEDS</p>
+   `;
+ setTimeout(()=>document.querySelector('.fills').remove(),2000);
 
- const newBook = new Books(title,author,isbn);
+ }
+ else{
+  
+    const newBook = new Books(title,author,isbn);
  UserInterface.addBooks(newBook);
  UserInterface.clearField();
+
+ }
+ 
+
+})
+document.querySelector('.content').addEventListener('click',(e)=>{
+UserInterface.deleteBooks(e.target);
+
 
 })
